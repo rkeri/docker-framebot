@@ -1,0 +1,16 @@
+version: "3"
+services:
+  docker-framebot:
+    container_name: docker-framebot
+    image: rkeri/framebot:0.1
+    environment:
+      PREFIX: "YOUR_POST_TITLE"
+      INTERVAL: 1
+      FB_TOKEN: "YOUR_TOKEN_HERE"
+      FPS: 30
+    ports:
+      - "9000:9000"
+    volumes:
+      - "./videos:/opt/framebot/videos"
+      - "./frames:/opt/framebot/frames"
+    restart: always
