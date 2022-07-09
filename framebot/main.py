@@ -2,6 +2,7 @@ import configparser
 import functools
 import os
 import time
+import sys
 from pathlib import Path
 
 import facebook
@@ -88,6 +89,7 @@ def post(frame_dir, total_frames, episode):
     graph = facebook.GraphAPI(fb_token)
     graph.put_photo(image=open(frame_dir, "rb"), message=message)
     print(f"Posted {message} successfully!")
+    sys.stdout("Posted: {0}".format(message))
     os.remove(frame_dir)
 
 
