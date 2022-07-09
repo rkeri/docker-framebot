@@ -16,5 +16,3 @@ RUN mkdir frames
 
 CMD ["main.py"]
 ENTRYPOINT ["python"]
-
-# CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
