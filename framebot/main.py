@@ -26,7 +26,7 @@ def catch_exceptions(cancel_on_failure=False):
             except:
                 import traceback
 
-                print(traceback.format_exc())
+                sys.stderr(traceback.format_exc())
                 if cancel_on_failure:
                     return schedule.CancelJob
 
@@ -68,7 +68,7 @@ def main():
     if len(inframe_dir) == 1:
         os.remove("./tmp_data")
     elif len(inframe_dir) == 0:
-        print("There is no more episode to post.")
+        sys.stdout("There is no more episode to post.")
         raise SystemExit
 
     final_frame_dir = f"./frames/{frame_dir}/{inframe_dir[0]}"
@@ -85,10 +85,9 @@ def post(frame_dir, total_frames, episode):
     frame_fname = Path(frame_dir).name
     current_frame_num = os.path.splitext(frame_fname)[0].lstrip("0")
 
-    message = f"{prefix} | Episode {episode} | Frame {current_frame_num} out of {str(total_frames)}"
+    message = f"{prefix} | Epizód: {episode} | Képkocka: {current_frame_num}/{str(total_frames)}"
     graph = facebook.GraphAPI(fb_token)
     graph.put_photo(image=open(frame_dir, "rb"), message=message)
-    print(f"Posted {message} successfully!")
     sys.stdout("Posted: {0}".format(message))
     os.remove(frame_dir)
 
