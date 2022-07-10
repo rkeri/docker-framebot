@@ -4,7 +4,8 @@ ENV PREFIX="title here" \
     INTERVAL="1" \
     FB_TOKEN="your_token" \
     FPS="1" \
-    WDIR="/opt/framebot"
+    WDIR="/opt/framebot" \
+    PYTHONUNBUFFERED="1"
 
 WORKDIR $WDIR
 

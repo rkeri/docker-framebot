@@ -1,8 +1,6 @@
-import configparser
 import functools
 import os
 import time
-import sys
 from pathlib import Path
 
 import facebook
@@ -10,9 +8,6 @@ import schedule
 
 import extract_frames
 
-# Parse config.ini
-config = configparser.ConfigParser()
-config.read("config.ini")
 fps = int(os.environ.get('FPS'))
 interval = int(os.environ.get('INTERVAL'))
 
@@ -26,7 +21,7 @@ def catch_exceptions(cancel_on_failure=False):
             except:
                 import traceback
 
-                sys.stderr(traceback.format_exc())
+                print(traceback.format_exc())
                 if cancel_on_failure:
                     return schedule.CancelJob
 
@@ -68,7 +63,7 @@ def main():
     if len(inframe_dir) == 1:
         os.remove("./tmp_data")
     elif len(inframe_dir) == 0:
-        sys.stdout("There is no more episode to post.")
+        print("There is no more episode to post.")
         raise SystemExit
 
     final_frame_dir = f"./frames/{frame_dir}/{inframe_dir[0]}"
@@ -88,7 +83,7 @@ def post(frame_dir, total_frames, episode):
     message = f"{prefix} | Epizód: {episode} | Képkocka: {current_frame_num}/{str(total_frames)}"
     graph = facebook.GraphAPI(fb_token)
     graph.put_photo(image=open(frame_dir, "rb"), message=message)
-    sys.stdout("Posted: {0}".format(message))
+    print(f"Posted: {message}")
     os.remove(frame_dir)
 
 
